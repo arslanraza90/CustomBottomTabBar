@@ -1,80 +1,11 @@
-# Custom BottomBar SwiftUI
-A SwiftUI custom bottom tab bar with independent navigation stacks per tab. Each tab maintains its own navigation history when switching between them.
+//
+//  MainRootView.swift
+//  CurvedBottomNavigation
+//
+//  Created by Arslan Raza on 16/08/2025.
+//
 
-<p align="center">
-  <img src="Docs/Screenshot-1.png" width="20%" />
-  <img src="Docs/Screenshot-2.png" width="20%" />
-  <img src="Docs/Screenshot-3.png" width="20%" />
-  <img src="Docs/Screenshot-4.png" width="20%" />
-  <img src="Docs/Screenshot-5.png" width="20%" />
-</p>
-
-
-# ✨ Features
-
-🧭 Independent Navigation Stacks per tab using NavigationStack and NavigationPath.
-
-🎨 Custom Bottom TabBar (replacing the default TabView).
-
-♻️ Preserves Navigation State when switching between tabs.
-
-📦 Dependency Injection Ready via DependencyContainer.
-
-🚀 Reusable Router (AppRouter) with helper methods:
-
-push(_:) → Navigate to a new screen.
-
-pop() → Go back one screen.
-
-popToRoot() → Reset to the root screen.
-
-# 🛠 Usage
-
-1. Define Your Routes
-
-```yaml
-enum AppRoute: Hashable {
-    case notification
-}
-```
-
-2. Setup Router
-
-```yaml
-@Observable
-final class AppRouter {
-    var path = NavigationPath()
-
-    func push(_ route: AppRoute) { path.append(route) }
-    func pop() { if !path.isEmpty { path.removeLast() } }
-    func popToRoot() { path.removeLast(path.count) }
-}
-```
-3. Use in Navigation
-
-```yaml
-struct HomeView: View {
-    @Environment(AppRouter.self) private var router
-
-    var body: some View {
-        VStack(spacing: 20) {
-            Text("🏠 Home").font(.largeTitle)
-
-            Button("Go to Notifications") {
-                router.push(.notificationDetail)
-            }
-        }
-    }
-}
-```
-
-# 🎨 Custom Tab Bar
-
-* Each tab has its own AppRouter (so stacks don’t reset when switching).
-
-* Example in RootView:
-
-```yaml
+import SwiftUI
 
 struct RootView: View {
     @State private var selectedTab: TabSelectedItem = .home
@@ -133,7 +64,3 @@ struct RootView: View {
         .ignoresSafeArea(.keyboard, edges: .bottom)
     }
 }
-```
-# 🤝 Contributing
-
-Pull requests are welcome! please open an issue first.
